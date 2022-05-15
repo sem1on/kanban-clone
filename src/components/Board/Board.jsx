@@ -1,13 +1,19 @@
 import React from 'react';
+
 import Card from '../Card/Card';
 import Editable from '../Editable/Editable';
 
 import './Board.css';
 
-const Board = ({ board, color, addCard, removeCard }) => {
+const Board = (props) => {
+
+    const { board, color, addCard, removeCard,  dropHendler, dropCardHendler, dragOverHendler, dragStartHendler } = props;
 
     return (
-        <div className='boards'>
+        <div 
+            className='boards'
+            onDragOver={(e) => dragOverHendler(e)}
+            onDrop={(e) => dropCardHendler(e, board)}>
             <div className="board_top" style={{ backgroundColor: color}}>
                 <p className="board_top_title"> 
                    {board.title}<span>{` (${board.cards.length})`}</span>
@@ -19,15 +25,17 @@ const Board = ({ board, color, addCard, removeCard }) => {
                         key={card.id}
                         card={card}
                         removeCard={removeCard}
-                        boardId={board.id}
+                        board={board}
+                        dropHendler={dropHendler}
+                        dragOverHendler={dragOverHendler}
+                        dragStartHendler={dragStartHendler}
                     />
                 )}
                 <Editable
                     addCard={addCard}
                     boardId={board.id}
                 />   
-            </div>
-            
+            </div>            
         </div>
     );
 };

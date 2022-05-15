@@ -47,6 +47,9 @@ function App() {
         },
     ]);
 
+    const [currentBoard, setCurrentBoard] = useState(null);
+    const [currentCard, setCurrentCard] = useState(null);
+
     const addCardHendler =(text, boardId) => {
         const newCard = {
             id: Date.now() + Math.random(),
@@ -75,23 +78,65 @@ function App() {
         setBoards(tempDoards); 
     }
 
-    console.log(boards[0].cards.length);
+    const dragStartHendler = (e, board, card) => {
+        setCurrentCard(card);
+        setCurrentBoard(board);
+    }
+
+    const dragOverHendler = (e) => {
+        e.preventDefault();
+    }
+
+    const dropHendler = (e, board, card) => {
+        e.preventDefault();
+        const currentIndex = currentBoard.cards.indexOf(currentCard)
+        currentBoard.cards.splice(currentIndex, 1)
+        const dropIndex = board.cards.indexOf(card)
+        board.cards.splice(dropIndex  + 1, 0, currentCard)
+        setBoards(boards.map(b => {
+            if (b.id === board.id) {
+                return board
+            }
+            if (b.id === currentBoard.id) {
+                return currentBoard
+            }
+            return b
+        }))  
+    }
+
+    const dropCardHendler = (e, board) => {
+        if(e.target.className !== "card") { 
+            board.cards.push(currentCard)
+            const currentIndex = currentBoard.cards.indexOf(currentCard)
+            currentBoard.cards.splice(currentIndex, 1)
+            setBoards(boards.map(b => {
+                if (b.id === board.id) {
+                    return board
+                }
+                if (b.id === currentBoard.id) {
+                    return currentBoard
+                }
+                return b
+            }))
+        }
+    }
+    
 
     return (
         <div className="app">
-            {/* <div className="app_outher"> */}
-                {/* <div className="app_boards"> */}
-                    {boards.map((board) => 
-                        <Board
-                            key={board.id}
-                            color={board.color}
-                            board={board}
-                            addCard={addCardHendler}
-                            removeCard={removeCardHendler}
-                        />
-                    )}
-                {/* </div> */}
-            {/* </div> */}
+            {boards.map((board) => 
+                <Board
+                    key={board.id}
+                    color={board.color}
+                    board={board}
+                    addCard={addCardHendler}
+                    removeCard={removeCardHendler}
+                    dragOverHendler={dragOverHendler}
+                    dropCardHendler={dropCardHendler}
+                    dragStartHendler={dragStartHendler}
+                    dropHendler={dropHendler}
+                />
+            )}
         </div>
   );
 }
