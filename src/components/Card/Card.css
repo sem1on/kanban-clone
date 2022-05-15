@@ -1,0 +1,32 @@
+.card {
+    background-color: black;
+    color: lightgray;
+    padding: 10px;
+}
+
+.card_clouse {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: -8px;
+    margin-right: -8px;
+}
+
+.card_clouse svg {
+    cursor: pointer;
+}
+
+.card_id {
+    color: #fff;
+    font-weight: bold;
+    margin: 10px 0; 
+}
+
+.card_id span {
+    color: lightgray;
+    font-weight: normal;
+}
+
+.card_text {
+    margin: 10px 0;
+}
