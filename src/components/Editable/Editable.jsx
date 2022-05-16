@@ -27,7 +27,8 @@ const Editable = ({ boardId, addCard}) => {
                         type="text" 
                         placeholder='Введите заголовок для карточки'
                         value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}/>
+                        onChange={(e) => setInputValue(e.target.value)}
+                        required/>
                     <div className="editable_edit_footer">
                         <button type='submit'>Добавить карточку</button>
                         <svg  onClick={() => setShowEdit(false)} 
@@ -54,9 +55,6 @@ const Editable = ({ boardId, addCard}) => {
                     </svg>
                     <p>Добавить карточку</p> 
             </div>}
-           
-            
-            
         </div>
     );
 };

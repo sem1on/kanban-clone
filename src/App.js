@@ -1,51 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Board from './components/Board/Board';
 
 function App() {
-
-    const [boards, setBoards] = useState([
+    
+    const startBoards = [
         {
             id: 1, 
-            color: 'rgb(253, 146, 24)',
+            color: 'rgb(250, 125, 68)',
             title: 'ON HOLD', 
-            cards: [
-                {id: Date.now() + Math.random(), text: "fdfdfdfd"},
-                {id: Date.now() + Math.random(), text: "fffff"},
-                {id: Date.now() + Math.random(), text: "ggg"},
-            ],
+            cards: [],
         },
         {
             id: 2,
             title: 'IN PROGRESS',
-            color: 'rgb(24, 203, 253)',
-            cards: [
-                {id: Date.now() + Math.random(), text: "aaaa"},
-                {id: Date.now() + Math.random(), text: "ttttt"},
-                {id: Date.now() + Math.random(), text: "hhhhhh"},
-            ],
+            color: 'rgb(42, 145, 193)',
+            cards: [],
         },
         {
             id: 3,
             title: 'NEEDS REVIEW',
-            color: 'rgb(210, 194, 46)',
-            cards: [
-                {id: Date.now() + Math.random(), text: "yyyyy"},
-                {id: Date.now() + Math.random(), text: "uuuuuu"},
-                {id: Date.now() + Math.random(), text: "pppppp"},
-            ],
+            color: 'rgb(240, 206, 68)',
+            cards: [],
         },
         {
             id: 4,
             title: 'APPROVED',
-            color: 'rgb(53, 193, 43)',
-            cards: [
-                {id: Date.now() + Math.random(), text: "bbbb"},
-                {id: Date.now() + Math.random(), text: "nnnn"},
-                {id: Date.now() + Math.random(), text: "kkk"},
-            ],
+            color: 'rgb(0, 187, 93)',
+            cards: [],
         },
-    ]);
+    ];
+
+    const [boards, setBoards] = useState(JSON.parse(localStorage.getItem('boards')) || startBoards);
+
+    useEffect(() => {
+        localStorage.setItem('boards', JSON.stringify(boards))
+    }, [boards]);
 
     const [currentBoard, setCurrentBoard] = useState(null);
     const [currentCard, setCurrentCard] = useState(null);
@@ -89,6 +79,7 @@ function App() {
 
     const dropHendler = (e, board, card) => {
         e.preventDefault();
+        e.stopPropagation();
         const currentIndex = currentBoard.cards.indexOf(currentCard)
         currentBoard.cards.splice(currentIndex, 1)
         const dropIndex = board.cards.indexOf(card)
@@ -101,26 +92,26 @@ function App() {
                 return currentBoard
             }
             return b
-        }))  
+        }));
+        
+        console.log(e.target.className);
+        
     }
 
     const dropCardHendler = (e, board) => {
-        if(e.target.className !== "card") { 
-            board.cards.push(currentCard)
-            const currentIndex = currentBoard.cards.indexOf(currentCard)
-            currentBoard.cards.splice(currentIndex, 1)
-            setBoards(boards.map(b => {
-                if (b.id === board.id) {
-                    return board
-                }
-                if (b.id === currentBoard.id) {
-                    return currentBoard
-                }
-                return b
-            }))
-        }
+        board.cards.push(currentCard)
+        const currentIndex = currentBoard.cards.indexOf(currentCard)
+        currentBoard.cards.splice(currentIndex, 1)
+        setBoards(boards.map(b => {
+            if (b.id === board.id) {
+                return board
+            }
+            if (b.id === currentBoard.id) {
+                return currentBoard
+            }
+            return b
+        }))
     }
-    
 
     return (
         <div className="app">

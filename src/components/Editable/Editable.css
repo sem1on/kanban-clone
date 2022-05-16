@@ -7,7 +7,7 @@
     align-items: center;
     gap: 5px;
     cursor: pointer;
-    color: #fff;
+    color: rgb(133, 131, 131);
 }
 
 .editable_edit {
@@ -16,30 +16,29 @@
 }
 
 .editable_edit textarea {
-    background-color: lightgray;
+    background-color: rgb(89, 87, 87);
     border: none;
     outline: none;
     resize: none;
     font-size: 14px;
     padding: 10px;
     height: 100px;
+    color:  lightgray;
 }
-
-
 
 .editable_edit_footer {
     display: flex;
     align-items: center;
-    color: #fff;
+    color:  rgb(89, 87, 87);
     margin-top: 10px;
 }
 
 .editable_edit_footer button {
-    background-color: lightgray;
+    background-color:  rgb(89, 87, 87);
     font-size: 16px;
     border: none;
     padding: 5px 15px;
-    color: #fff;
+    color:  lightgray;
     cursor: pointer;
 }
 

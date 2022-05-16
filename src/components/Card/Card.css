@@ -1,5 +1,5 @@
 .card {
-    background-color: black;
+    background-color: rgb(23, 27, 28);
     color: lightgray;
     padding: 10px;
 }
@@ -23,10 +23,11 @@
 }
 
 .card_id span {
-    color: lightgray;
+    color: rgb(133, 131, 131);
     font-weight: normal;
 }
 
 .card_text {
     margin: 10px 0;
+    color: rgb(133, 131, 131);
 }
