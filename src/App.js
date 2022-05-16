@@ -3,7 +3,7 @@ import './App.css';
 import Board from './components/Board/Board';
 
 function App() {
-    
+
     const startBoards = [
         {
             id: 1, 
@@ -59,12 +59,12 @@ function App() {
         if (index < 0) return;
 
         const tempDoards = [...boards];
-        const newCards = tempDoards[index].cards;
+        const selectCards = tempDoards[index].cards;
 
-        const cIndex = newCards.findIndex((item) => item.id === cardId);
+        const cIndex = selectCards.findIndex((item) => item.id === cardId);
         if (cIndex < 0) return;
 
-        newCards.splice(cIndex, 1);
+        selectCards.splice(cIndex, 1);
         setBoards(tempDoards); 
     }
 
@@ -93,9 +93,6 @@ function App() {
             }
             return b
         }));
-        
-        console.log(e.target.className);
-        
     }
 
     const dropCardHendler = (e, board) => {
